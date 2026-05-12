@@ -1,18 +1,21 @@
+import pandas as pd
 from jiwer import wer
-import soundfile as sf
-import numpy as np
-from mir_eval.separation import bss_eval_sources
 
-def calculate_wer(reference, hypothesis):
-    return wer(reference, hypothesis)
+results = []
 
-def calculate_sisnr(reference_audio, estimated_audio):
-    sdr, sir, sar, perm = bss_eval_sources(reference_audio, estimated_audio)
-    return np.mean(sdr)
+def evaluate(file, ref, hyp):
 
-if __name__ == "__main__":
+    error = wer(ref, hyp)
 
-    ref_text = "turn on the kitchen lights"
-    pred_text = "turn on kitchen lights"
+    results.append({
+        "file": file,
+        "WER": round(error, 3)
+    })
 
-    print("WER:", calculate_wer(ref_text, pred_text))
+
+def save():
+
+    df = pd.DataFrame(results)
+    df.to_csv("outputs/results/evaluation.csv", index=False)
+
+    print(df)
