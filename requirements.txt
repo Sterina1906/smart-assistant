@@ -1,0 +1,12 @@
+gradio
+librosa
+soundfile
+numpy
+pandas
+jiwer
+mir_eval
+matplotlib
+scipy
+openai-whisper
+torch
+torchaudio
